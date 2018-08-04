@@ -1,0 +1,195 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            background: #555;
+        }
+
+        .provider {
+            display: none;
+            width: 530px;
+            height: 286px;
+            position: fixed;
+            top: 30%;
+            left: 30%;
+            background: white;
+        }
+
+        .provider .provider-title {
+            width: 100%;
+            height: 44px;
+            background: #000;
+        }
+
+        .provider .provider-title span {
+            color: #fff;
+            font: 15px/44px "微软雅黑";
+            font-size: 15px;
+            margin-left: 20px;
+        }
+
+        .provider .provider-title a {
+            display: block;
+            /* background: url(../images/join-images/controls.png) no-repeat; */
+            width: 30px;
+            height: 23px;
+            position: absolute;
+            top: 10px;
+            right: 0;
+        }
+
+        .provider .provider-files {
+            width: 100%;
+            height: 242px;
+            position: relative;
+        }
+
+        .provider .provider-files input {
+            width: 172px;
+            height: 38px;
+            cursor: pointer;
+            position: absolute;
+            z-index: 9;
+            opacity: 0;
+            top: 100px;
+            left: 150px;
+        }
+
+        .provider .provider-files .provider-chose {
+            width: 172px;
+            height: 38px;
+            background: #14592f;
+            color: #fff;
+            font: 22px/38px "微软雅黑";
+            text-align: center;
+            position: absolute;
+            top: 100px;
+            left: 150px;
+        }
+
+        .provider .provider-files p {
+            position: absolute;
+            bottom: 65px;
+            left: 102px;
+            color: red;
+            font-size: 15px;
+        }
+
+        .error_msg {
+            background: url(images/lb_error.png) 0 5px no-repeat;
+            padding-left: 45px;
+            width: 380px;
+            margin: 0 auto 25px;
+            text-align: left;
+            min-height: 29px;
+            line-height: 36px;
+        }
+    </style>
+
+</head>
+<body>
+<!-- <input type="file" name="contractFileName" style="width: 500px;" onchange="fileChange(this);"/>  -->
+<button>按钮</button>
+<div class='provider'>
+    <div class='provider-title'>
+        <span>上传附件简历</span>
+        <a href='javascript:;'></a>
+    </div>
+    <div class='provider-files'>
+        <form action='' method='post' enctype='multipart/form-data'>
+            <input type='file' onchange="fileChange(this);">
+            <label class='provider-chose'>选择上传文件</label>
+        </form>
+        <p>注:只支持word格式文件文件大小需小于3M
+        </p>
+
+    </div>
+  </div>
+
+</body>
+
+
+<script src="jquery-1.9.1.js"></script>
+<script type="text/javascript">
+
+    var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
+    function fileChange(target, id) {
+        console.log(target.value);
+        console.log(target);
+        var fileSize = 0;
+        var filetypes = [".jpg", ".png", ".rar", ".txt", ".zip", ".doc", ".ppt", ".xls", ".pdf", ".docx", ".xlsx"];
+        var filepath = target.value;
+        var filemaxsize = 1024 * 5;//5M
+        if (filepath) {
+            var isnext = false;
+            var fileend = filepath.substring(filepath.indexOf("."));
+            if (filetypes && filetypes.length > 0) {
+                for (var i = 0; i < filetypes.length; i++) {
+                    if (filetypes[i] == fileend) {
+                        isnext = true;
+                        break;
+                    }
+                }
+            }
+            if (!isnext) {
+                var content = document.querySelectorAll(".provider .provider-files")[0];
+                alert("不接受此文件类型！");
+                target.value = "";
+                return false;
+            }
+        } else {
+            return false;
+        }
+        if (isIE && !target.files) {
+            var filePath = target.value;
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            if (!fileSystem.FileExists(filePath)) {
+                var content = document.querySelectorAll(".provider .provider-files")[0];
+                console.log(content);
+                alert("不接受此文件类型！");
+                return false;
+            }
+            var file = fileSystem.GetFile(filePath);
+            fileSize = file.Size;
+        } else {
+            fileSize = target.files[0].size;
+        }
+
+        var size = fileSize / 1024;
+        if (size > filemaxsize) {
+            alert("附件大小不能大于" + filemaxsize / 1024 + "M！");
+            target.value = "";
+            return false;
+        }
+        if (size <= 0) {
+            alert("附件大小不能为0M！");
+            target.value = "";
+            return false;
+        }
+        alert("成功");
+    }
+
+
+    var button11 = document.querySelectorAll("button")[0];
+
+    $(button11).on("click", function () {
+        $(".provider").fadeIn("slow", function () {
+//            console.log(this);
+        });
+    });
+
+</script>
+</html>
+
+
+
+
+	
+		
+

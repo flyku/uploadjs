@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .u-file-btn {
+            position: relative;
+            direction:ltr;
+            height:30px;
+            overflow:hidden;
+            line-height:30px;
+            margin-right:10px;
+            padding:3px 0;
+            text-align: center;
+            width:100px;
+            border-radius: 5px;
+            background: #0490d5;
+            color: #ffffff;
+        }
+        .u-file-btn input{
+            cursor: pointer;
+            height: 35px;
+            text-align: right;
+            z-index:10;
+            font-size:118px;/* font-size: 118px 工作正常 */
+            position: absolute;
+            top:0px;
+            right:0px;
+            opacity:0;
+            filter:Alpha(opacity:0);
+        }
+    </style>
+</head>
+<body>
+<div class="u-file-c">
+    <input type="file" name="attach"/>上传附件
+</div>
+
+
+<script src="jquery-1.9.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.u-file-c').addClass('u-file-btn');
+        $('.u-file-c').each(function (i, el) {
+            $(this).html($(this).html());
+        })
+    });
+</script>
+
+</body>
+</html>
